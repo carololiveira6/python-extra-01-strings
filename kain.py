@@ -1,3 +1,5 @@
+import re
+
 def standardize_names(character_name):
 
     name = character_name.strip()
@@ -5,42 +7,24 @@ def standardize_names(character_name):
 
     return new_name
 
-if __name__ == "__main__":
-
-    hero_standardized = standardize_names(" Batman     ")
-    print(hero_standardized)
-
-    hero_standardized = standardize_names("      Super Man")
-    print(hero_standardized)
-
 def standardize_title(title):
 
     new_title = title.title()
 
     return new_title
 
-if __name__ == "__main__":
+text_1 = """a famosa atriz Constance Rattigan recebe uma encomenda desagradável: uma lista com números de telefone de pessoas que morreram recentemente. é uma coisa assustadora considerando que os nomes das poucas pessoas vivas presentes na lista estão assinalados em vermelho com uma cruz. O da própria Constance é um deles."""
 
-    title = standardize_title("cinco quartos de laranja")
-    print(title)
+def standardize_text(text_1):
 
+    filtered = re.compile('([.?!]\s*)')
+    split_text = filtered.split(text_1)
 
-text = """a famosa atriz Constance Rattigan recebe uma encomenda desagradável: uma lista com números de
-telefone de pessoas que morreram recentemente. é uma coisa assustadora, considerando que os nomes das
-poucas pessoas vivas presentes na lista estão assinalados em vermelho com
-uma cruz. O da própria Constance é um deles."""
+    normal_text = ''.join([i.capitalize() for i in split_text])
 
-def standardize_text(text):
+    final_text = normal_text.strip().capitalize()
 
-    new_text = text.capitalize()
-
-    return new_text
-
-
-if __name__ == "__main__":
-
-    normalized_text = standardize_text(text)
-    print(normalized_text)
+    return final_text
 
 text = "pense num deserto"
 
@@ -50,12 +34,6 @@ def title_creator(text):
     center_text = new_text.center(57, "-")
 
     return center_text
-
-if __name__ == "__main__":
-
-    title = title_creator(text)
-    print(title)
-
 
 text_of_blog_a = """
 na Londres do pós-guerra, a escritora     Juliet tenta encontrar uma   trama para seu novo livro. ela 
@@ -69,10 +47,29 @@ complexa e      bela ao mesmo tempo.
 """
 
 def text_merge(text_of_blog_a, text_of_blog_b):
+
+    one_text = text_of_blog_a + text_of_blog_b
+    upper_text = standardize_text(one_text)
+    final_text = re.sub("\s+", " ", upper_text)
+
+    return final_text
     
-
-
 if __name__ == "__main__":
+
+    hero_standardized = standardize_names(" Batman     ")
+    print(hero_standardized)
+
+    hero_standardized = standardize_names("      Super Man")
+    print(hero_standardized)
+
+    title = standardize_title("cinco quartos de laranja")
+    print(title)
+
+    normalized_text = standardize_text(text_1)
+    print(normalized_text)
+
+    title = title_creator(text)
+    print(title)
 
     merged_text = text_merge(text_of_blog_a, text_of_blog_b)
     print(merged_text)
