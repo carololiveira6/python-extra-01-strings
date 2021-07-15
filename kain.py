@@ -57,7 +57,8 @@ def text_merge(text_of_blog_a, text_of_blog_b):
     text_of_blog_a = standardize_text(text_of_blog_a)
     text_of_blog_b = standardize_text(text_of_blog_b)
 
-    text_of_blog_a = text_of_blog_a[:-1]
+    if text_of_blog_a[-1:] == '.':
+        text_of_blog_a = text_of_blog_a[:-1]
 
     text_of_blog_b = text_of_blog_b[0].lower() + text_of_blog_b[1:]
 
